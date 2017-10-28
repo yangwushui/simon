@@ -1,0 +1,5 @@
+*** Settings ***
+
+*** Variables ***
+${data}           开始执行
+${excel}          ${CURDIR}${/}testcase.xlsx

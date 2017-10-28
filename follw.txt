@@ -1,0 +1,19 @@
+*** Settings ***
+Resource          elents.txt
+Library           String
+Library           mylibraryrequests
+Library           mylibrarycommon
+
+*** Keywords ***
+test1
+    [Arguments]    ${sheetname}
+    [Documentation]    打印日志
+    log    ${data}
+    Create Session    api    http://127.0.0.1:5000
+    ${excldata}    Get Paras New    ${excel}    ${sheetname}    0    4
+    log    ${excldata}
+    ${data}    mylibraryrequests.Get Request    api    ${excldata}
+    log    ${data.content}
+    ${datajson}    To Json    ${data.content}
+    log    "这是一个描述："${datajson[0]["description"]}
+    Should Be Equal As Strings    ${datajson[0]["description"]}    Milk, Cheese, Pizza, Fruit, Tylenol
